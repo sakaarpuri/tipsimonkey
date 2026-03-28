@@ -306,7 +306,7 @@
 
     .photo-grid {
       display: grid;
-      grid-template-columns: 1.6fr 0.82fr;
+      grid-template-columns: 1.35fr 1fr;
       gap: 16px;
       min-height: 540px;
     }
@@ -314,7 +314,7 @@
     .photo-card {
       position: relative;
       overflow: hidden;
-      border-radius: 24px;
+      border-radius: 22px;
       min-height: 220px;
       border: 1px solid rgba(245, 237, 224, 0.1);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
@@ -326,7 +326,7 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(16, 9, 7, 0.55)),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.03), rgba(16, 9, 7, 0.16)),
         linear-gradient(145deg, rgba(232, 118, 43, 0.18), rgba(90, 122, 71, 0.12));
       pointer-events: none;
     }
@@ -343,34 +343,14 @@
       min-height: 540px;
     }
 
+    .photo-card.small {
+      min-height: 280px;
+    }
+
     .photo-stack {
       display: grid;
+      grid-template-rows: minmax(280px, auto) auto;
       gap: 16px;
-    }
-
-    .photo-caption {
-      position: absolute;
-      left: 18px;
-      right: 18px;
-      bottom: 16px;
-      z-index: 1;
-      display: grid;
-      gap: 4px;
-    }
-
-    .photo-kicker {
-      margin: 0;
-      color: var(--accent);
-      font-size: 0.78rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .photo-title {
-      margin: 0;
-      font-family: "Fraunces", serif;
-      font-size: 1.4rem;
-      line-height: 1.1;
     }
 
     .flavor-card {
@@ -555,12 +535,7 @@
       }
     }
 
-    @media (max-width: 920px) {
-      .hero,
-      .signup-panel {
-        grid-template-columns: 1fr;
-      }
-
+    @media (max-width: 1080px) {
       .photo-grid {
         grid-template-columns: 1fr;
         min-height: auto;
@@ -568,6 +543,13 @@
 
       .photo-card.large {
         min-height: 360px;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .signup-panel {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -677,24 +659,16 @@
               <figure class="photo-card large">
                 <img
                   src="images/tipsi-food-hero.jpg"
-                  alt="Tacos and margarita hero image for Tipsi Monkey"
+                  alt="Tacos and margarita spread for Tipsi Monkey"
                 />
-                <figcaption class="photo-caption">
-                  <p class="photo-kicker">Hero Food Image</p>
-                  <p class="photo-title">Signature tacos, margaritas, and the first delicious look</p>
-                </figcaption>
               </figure>
 
               <div class="photo-stack">
-                <figure class="photo-card">
+                <figure class="photo-card small">
                   <img
                     src="images/tipsi-kitchen-prep.jpg"
                     alt="Kitchen prep image for Tipsi Monkey"
                   />
-                  <figcaption class="photo-caption">
-                    <p class="photo-kicker">Kitchen Image</p>
-                    <p class="photo-title">Fresh prep, hot pans, and opening-night energy</p>
-                  </figcaption>
                 </figure>
 
                 <div class="flavor-card" aria-label="Signature offerings">
