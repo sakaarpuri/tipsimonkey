@@ -1,0 +1,17 @@
+{
+  "prompt": "Photorealistic food hero image for a warm, modern Tex-Mex cantina launch page. Tight editorial composition of beautifully plated street tacos beside a salt-rimmed margarita and small dishes of salsa on a richly textured dark wood table. Mood is festive but refined, like a well-lit bar at 8pm. Color palette leans deep terracotta, warm amber, agave green, burnt orange, and near-black brown. Real food texture is essential: char on tortillas, glistening citrus, condensation on the glass, realistic herbs, believable shadows, subtle wear in the tabletop. Cinematic restaurant lighting with warm practical light and soft falloff, no harsh flash, no sterile studio look. Shot as premium hospitality photography for a restaurant opening campaign.",
+  "negative_prompt": "outdoor patio, exterior building, storefront, street scene, generic stock photo, cgi, cartoon, illustration, fake food, plastic texture, oversaturated neon, blurry, distorted plate, duplicated ingredients, extra glasses, warped hands, text overlay, watermark, logo, menu, flat lighting",
+  "api_parameters": {
+    "resolution": "1K",
+    "output_format": "jpg",
+    "aspect_ratio": "4:5"
+  },
+  "settings": {
+    "resolution": "1024x1280",
+    "style": "photorealistic hospitality food photography",
+    "lighting": "warm ambient cantina lighting with soft directional highlights",
+    "camera_angle": "three-quarter close hero angle from table height",
+    "depth_of_field": "shallow depth of field with crisp focal detail on tacos and cocktail",
+    "quality": "high detail, realistic food texture, premium restaurant campaign finish"
+  }
+}

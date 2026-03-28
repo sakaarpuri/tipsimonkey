@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tipsi Monkey | Coming Soon</title>
+  <meta
+    name="description"
+    content="A new Tipsi Monkey location is on the way. Be the first to know when tacos, tequila, and good vibes arrive."
+  />
+  <link
+    rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231a0f0a'/%3E%3Cpath d='M18 43c10-18 18-18 28 0' fill='none' stroke='%23f2c14e' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='25' cy='24' r='5' fill='%23e8762b'/%3E%3Ccircle cx='39' cy='24' r='5' fill='%235a7a47'/%3E%3C/svg%3E"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #1a0f0a;
+      --surface: #2c1a10;
+      --primary: #e8762b;
+      --accent: #f2c14e;
+      --green: #5a7a47;
+      --text: #f5ede0;
+      --muted: #a08070;
+      --border: rgba(242, 193, 78, 0.16);
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      color-scheme: dark;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "DM Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(232, 118, 43, 0.24), transparent 32%),
+        radial-gradient(circle at 85% 15%, rgba(90, 122, 71, 0.2), transparent 26%),
+        radial-gradient(circle at 50% 100%, rgba(242, 193, 78, 0.1), transparent 30%),
+        linear-gradient(145deg, #120a07 0%, #1a0f0a 30%, #26140d 65%, #140b07 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    body::before {
+      background:
+        linear-gradient(90deg, transparent 0, rgba(255, 255, 255, 0.025) 50%, transparent 100%),
+        repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.02) 0,
+          rgba(255, 255, 255, 0.02) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      mix-blend-mode: soft-light;
+      opacity: 0.5;
+    }
+
+    body::after {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='rgba(242,193,78,0.07)' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M110 32c-8 33-8 67 0 102'/%3E%3Cpath d='M110 52c-20 19-35 44-43 73'/%3E%3Cpath d='M110 52c20 19 35 44 43 73'/%3E%3Cpath d='M110 68c-28 10-47 28-58 54'/%3E%3Cpath d='M110 68c28 10 47 28 58 54'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      opacity: 0.18;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .watermark {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: "Fraunces", serif;
+      font-size: clamp(6rem, 22vw, 16rem);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: rgba(242, 193, 78, 0.045);
+      text-transform: uppercase;
+      user-select: none;
+      pointer-events: none;
+      transform: translateY(-4vh);
+    }
+
+    .card {
+      width: min(100%, 1120px);
+      padding: clamp(28px, 4vw, 44px);
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(44, 26, 16, 0.94), rgba(24, 13, 9, 0.92)),
+        rgba(44, 26, 16, 0.9);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top, rgba(242, 193, 78, 0.18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(232, 118, 43, 0.12), transparent 24%);
+      pointer-events: none;
+    }
+
+    .inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 30px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    }
+
+    .reveal.logo {
+      animation-delay: 0.15s;
+    }
+
+    .reveal.copy {
+      animation-delay: 0.35s;
+    }
+
+    .reveal.form {
+      animation-delay: 0.55s;
+    }
+
+    .reveal.media {
+      animation-delay: 0.75s;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: clamp(24px, 4vw, 44px);
+      align-items: center;
+    }
+
+    .brand-column {
+      display: grid;
+      gap: 24px;
+      align-content: start;
+    }
+
+    .logo-zone {
+      display: grid;
+      justify-items: start;
+      gap: 12px;
+      min-height: 126px;
+    }
+
+    .logo-image {
+      max-width: min(360px, 72vw);
+      width: 100%;
+      max-height: 120px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 28px rgba(0, 0, 0, 0.28));
+    }
+
+    .wordmark {
+      display: grid;
+      gap: 6px;
+      text-align: left;
+    }
+
+    .wordmark-title {
+      margin: 0;
+      font-family: "Fraunces", serif;
+      font-size: clamp(2.4rem, 8vw, 4.8rem);
+      line-height: 0.95;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+    }
+
+    .wordmark-swash {
+      display: inline-block;
+      position: relative;
+      padding: 0 0.16em 0.1em;
+    }
+
+    .wordmark-swash::after {
+      content: "";
+      position: absolute;
+      left: -0.04em;
+      right: -0.04em;
+      bottom: 0.1em;
+      height: 0.28em;
+      z-index: -1;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(232, 118, 43, 0.85), rgba(242, 193, 78, 0.6));
+      filter: blur(0.5px);
+      transform: rotate(-1.4deg);
+    }
+
+    .tagline {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .location-line {
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .location-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.42rem 0.7rem;
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(90, 122, 71, 0.24);
+      border: 1px solid rgba(90, 122, 71, 0.45);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    }
+
+    .headline {
+      margin: 0;
+      font-family: "Fraunces", serif;
+      font-size: clamp(2.6rem, 6vw, 4.6rem);
+      line-height: 1;
+      font-weight: 700;
+      text-wrap: balance;
+      max-width: 10ch;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      width: fit-content;
+      margin: 0 auto;
+      padding: 0.68rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #241208;
+      background: linear-gradient(135deg, var(--accent), #f8d57f);
+      box-shadow: 0 10px 30px rgba(242, 193, 78, 0.2);
+      animation: badge-glow 2.6s ease-in-out infinite;
+    }
+
+    .copy {
+      margin: 0;
+      max-width: 36rem;
+      color: var(--text);
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      line-height: 1.7;
+    }
+
+    .intro-block {
+      display: grid;
+      gap: 18px;
+      justify-items: start;
+    }
+
+    .media-column {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 0.82fr;
+      gap: 16px;
+      min-height: 540px;
+    }
+
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      min-height: 220px;
+      border: 1px solid rgba(245, 237, 224, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      background: rgba(245, 237, 224, 0.04);
+    }
+
+    .photo-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(16, 9, 7, 0.55)),
+        linear-gradient(145deg, rgba(232, 118, 43, 0.18), rgba(90, 122, 71, 0.12));
+      pointer-events: none;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+    }
+
+    .photo-card.large {
+      min-height: 540px;
+    }
+
+    .photo-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .photo-caption {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      z-index: 1;
+      display: grid;
+      gap: 4px;
+    }
+
+    .photo-kicker {
+      margin: 0;
+      color: var(--accent);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .photo-title {
+      margin: 0;
+      font-family: "Fraunces", serif;
+      font-size: 1.4rem;
+      line-height: 1.1;
+    }
+
+    .flavor-card {
+      display: grid;
+      gap: 14px;
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(245, 237, 224, 0.04);
+      border: 1px solid rgba(245, 237, 224, 0.08);
+    }
+
+    .flavor-card-title {
+      margin: 0;
+      color: var(--accent);
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .flavors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .flavors span {
+      padding: 0.62rem 0.95rem;
+      border-radius: 999px;
+      background: rgba(245, 237, 224, 0.05);
+      border: 1px solid rgba(245, 237, 224, 0.08);
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+
+    .signup-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 560px);
+      gap: 22px;
+      align-items: center;
+      padding: clamp(20px, 3vw, 28px);
+      border-radius: 24px;
+      background: rgba(245, 237, 224, 0.04);
+      border: 1px solid rgba(245, 237, 224, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .signup-copy {
+      display: grid;
+      gap: 10px;
+    }
+
+    .signup-kicker {
+      margin: 0;
+      color: var(--accent);
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .signup-title {
+      margin: 0;
+      font-family: "Fraunces", serif;
+      font-size: clamp(1.5rem, 3vw, 2.3rem);
+      line-height: 1.05;
+    }
+
+    .signup-help {
+      margin: 0;
+      color: var(--muted);
+      max-width: 34rem;
+    }
+
+    .form-wrap {
+      display: grid;
+      gap: 16px;
+    }
+
+    .form-label {
+      margin: 0;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .signup {
+      width: 100%;
+      display: flex;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(245, 237, 224, 0.05);
+      border: 1px solid rgba(245, 237, 224, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .signup input {
+      flex: 1 1 240px;
+      min-width: 0;
+      border: 0;
+      border-radius: 12px;
+      padding: 0.95rem 1rem;
+      font: inherit;
+      color: var(--text);
+      background: rgba(16, 9, 7, 0.7);
+      outline: none;
+    }
+
+    .signup input::placeholder {
+      color: rgba(245, 237, 224, 0.45);
+    }
+
+    .signup input:focus {
+      box-shadow: 0 0 0 2px rgba(232, 118, 43, 0.28);
+    }
+
+    .signup button {
+      border: 0;
+      border-radius: 12px;
+      padding: 0.95rem 1.4rem;
+      font: inherit;
+      font-weight: 700;
+      color: #180d08;
+      background: linear-gradient(135deg, var(--primary), #f19b55);
+      cursor: pointer;
+      transition: transform 180ms ease, filter 180ms ease, background 180ms ease;
+      white-space: nowrap;
+    }
+
+    .signup button:hover,
+    .signup button:focus-visible {
+      transform: translateY(-1px) scale(1.03);
+      filter: brightness(1.06);
+      background: linear-gradient(135deg, #f18a43, #f4b465);
+      outline: none;
+    }
+
+    .microcopy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .bot-field {
+      display: none;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @keyframes fade-up {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes badge-glow {
+      0%,
+      100% {
+        box-shadow: 0 10px 30px rgba(242, 193, 78, 0.18);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 12px 36px rgba(242, 193, 78, 0.32);
+        transform: scale(1.03);
+      }
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .signup-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-grid {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .photo-card.large {
+        min-height: 360px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        padding: 18px;
+      }
+
+      .card {
+        border-radius: 24px;
+      }
+
+      .logo-zone,
+      .intro-block {
+        justify-items: center;
+      }
+
+      .wordmark,
+      .copy,
+      .signup-copy {
+        text-align: center;
+      }
+
+      .location-line {
+        justify-items: center;
+        justify-content: center;
+      }
+
+      .headline {
+        max-width: 12ch;
+      }
+
+      .signup {
+        flex-direction: column;
+      }
+
+      .signup button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="watermark" aria-hidden="true">Agave</div>
+
+    <section class="card" aria-labelledby="coming-soon-heading">
+      <div class="inner">
+        <div class="hero">
+          <div class="brand-column">
+            <div class="logo-zone reveal logo">
+              <!-- INSERT LOGO: /assets/logo.png -->
+              <!-- TODO: Client to supply /assets/logo.png -->
+              <img
+                class="logo-image"
+                id="brand-logo"
+                src="assets/logo.png"
+                alt="Tipsi Monkey logo"
+              />
+
+              <div class="wordmark" id="wordmark" hidden>
+                <p class="wordmark-title">
+                  <span class="wordmark-swash">Tipsi Monkey</span>
+                </p>
+                <p class="tagline">Taco &amp; Tequila Bar</p>
+              </div>
+            </div>
+
+            <div class="intro-block reveal">
+              <!-- TODO: Replace "Your City" with the confirmed opening location/city -->
+              <p class="location-line">
+                New location opening in
+                <span class="location-chip">Your City</span>
+              </p>
+
+              <!-- TODO: Client to confirm final hero headline -->
+              <h1 class="headline" id="coming-soon-heading">Something Delicious Is Coming</h1>
+
+              <div class="badge" aria-label="Opening soon">Coming Soon</div>
+
+              <!-- TODO: Client can tweak this supporting copy if preferred -->
+              <p class="copy">
+                New location. Same good vibes. Tacos, tequila, crafted margaritas,
+                and that warm, cheeky Tipsi Monkey energy you already know and love.
+              </p>
+            </div>
+          </div>
+
+          <div class="media-column reveal media">
+            <div class="photo-grid">
+              <!-- TODO: Replace generated placeholder images with final approved brand photography if desired -->
+              <figure class="photo-card large">
+                <img
+                  src="images/tipsi-food-hero.jpg"
+                  alt="Tacos and margarita hero image for Tipsi Monkey"
+                />
+                <figcaption class="photo-caption">
+                  <p class="photo-kicker">Hero Food Image</p>
+                  <p class="photo-title">Signature tacos, margaritas, and the first delicious look</p>
+                </figcaption>
+              </figure>
+
+              <div class="photo-stack">
+                <figure class="photo-card">
+                  <img
+                    src="images/tipsi-kitchen-prep.jpg"
+                    alt="Kitchen prep image for Tipsi Monkey"
+                  />
+                  <figcaption class="photo-caption">
+                    <p class="photo-kicker">Kitchen Image</p>
+                    <p class="photo-title">Fresh prep, hot pans, and opening-night energy</p>
+                  </figcaption>
+                </figure>
+
+                <div class="flavor-card" aria-label="Signature offerings">
+                  <p class="flavor-card-title">What To Expect</p>
+                  <div class="flavors">
+                    <span>Tacos</span>
+                    <span>Tequila</span>
+                    <span>Crafted Margaritas</span>
+                    <span>Family-Friendly Fun</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-wrap reveal form">
+          <div class="signup-panel">
+            <div class="signup-copy">
+              <p class="signup-kicker">Opening Updates</p>
+              <p class="signup-title">Be first in line when the doors open.</p>
+              <p class="signup-help">
+                Drop in your email and we can send opening news, launch details,
+                and first-look updates as soon as the new location is ready.
+              </p>
+            </div>
+
+            <div>
+              <p class="form-label">Be the first to know when we open</p>
+
+              <!-- Netlify Forms: works after deploying this page to Netlify -->
+              <form
+                class="signup"
+                name="tipsi-monkey-coming-soon"
+                method="post"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                novalidate
+              >
+                <input type="hidden" name="form-name" value="tipsi-monkey-coming-soon" />
+                <p class="bot-field">
+                  <label>
+                    Don’t fill this out if you’re human:
+                    <input name="bot-field" />
+                  </label>
+                </p>
+                <label class="sr-only" for="email">Email address</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  placeholder="Enter your email"
+                  required
+                />
+                <button type="submit">Notify Me</button>
+              </form>
+
+              <p class="microcopy">We’ll keep the inbox chatter light and the updates worth it.</p>
+            </div>
+          </div>
+        </div>
+
+        <footer>© 2025 Tipsi Monkey. All rights reserved.</footer>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const logo = document.getElementById("brand-logo");
+    const wordmark = document.getElementById("wordmark");
+    const signupForm = document.querySelector(".signup");
+
+    const showWordmark = () => {
+      if (!wordmark) return;
+      wordmark.hidden = false;
+      if (logo) logo.hidden = true;
+    };
+
+    if (logo) {
+      logo.addEventListener("error", showWordmark);
+
+      if (logo.complete && logo.naturalWidth === 0) {
+        showWordmark();
+      }
+    } else {
+      showWordmark();
+    }
+
+    if (signupForm) {
+      // Keep local previews from navigating away; allow normal POST on Netlify-hosted pages.
+      signupForm.addEventListener("submit", (event) => {
+        const isLocalPreview =
+          window.location.protocol === "file:" ||
+          window.location.hostname === "127.0.0.1" ||
+          window.location.hostname === "localhost";
+
+        if (isLocalPreview) {
+          event.preventDefault();
+        }
+      });
+    }
+  </script>
+</body>
+</html>

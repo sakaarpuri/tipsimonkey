@@ -1,0 +1,17 @@
+{
+  "prompt": "Photorealistic kitchen-prep image for a restaurant coming soon page. Interior back-of-house scene focused on fresh Tex-Mex prep in progress: stainless prep station, chopped cilantro and lime, tortillas warming, taco fillings being assembled, subtle steam, organized ingredients, and a clean professional kitchen environment. The tone should feel energetic, warm, and authentic rather than corporate. Lighting should echo the same brand palette as the site with warm amber highlights, deep brown shadows, muted agave green notes, and realistic metal reflections. Composition should feel documentary and intimate, as if captured during opening-week prep, with believable detail and no outdoor elements.",
+  "negative_prompt": "outdoor scene, exterior building, patio, dining room wide shot, cartoon, cgi, artificial plastic food, messy dirty kitchen, unsafe food handling, blurry, distorted utensils, duplicate ingredients, extreme fisheye, text overlay, watermark, logo, staged corporate cafeteria",
+  "api_parameters": {
+    "resolution": "1K",
+    "output_format": "jpg",
+    "aspect_ratio": "4:5"
+  },
+  "settings": {
+    "resolution": "1024x1280",
+    "style": "photorealistic documentary restaurant photography",
+    "lighting": "warm practical kitchen lighting with soft cinematic contrast",
+    "camera_angle": "slightly elevated documentary angle over a prep station",
+    "depth_of_field": "moderate depth of field keeping prep details sharp",
+    "quality": "high detail, realistic materials, authentic food-prep atmosphere"
+  }
+}
