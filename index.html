@@ -175,6 +175,8 @@
     .logo-zone {
       display: grid;
       justify-items: start;
+      justify-content: start;
+      width: 100%;
       gap: 12px;
       min-height: 126px;
     }
@@ -189,7 +191,9 @@
 
     .brand-mark {
       max-width: min(520px, 90vw);
-      width: 100%;
+      width: auto;
+      justify-self: start;
+      align-self: start;
       max-height: 190px;
       object-fit: contain;
       display: block;
