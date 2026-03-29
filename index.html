@@ -177,7 +177,7 @@
       justify-items: start;
       justify-content: start;
       width: 100%;
-      gap: 12px;
+      gap: 8px;
       min-height: 126px;
     }
 
@@ -190,14 +190,28 @@
     }
 
     .brand-mark {
-      max-width: min(520px, 90vw);
+      max-width: min(400px, 76vw);
       width: auto;
       justify-self: start;
       align-self: start;
-      max-height: 190px;
+      max-height: 148px;
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.24));
+    }
+
+    .brand-label {
+      gap: 4px;
+    }
+
+    .brand-label .wordmark-title {
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+      letter-spacing: 0.1em;
+    }
+
+    .brand-label .tagline {
+      font-size: 0.76rem;
+      letter-spacing: 0.22em;
     }
 
     .wordmark {
@@ -597,15 +611,21 @@
       <div class="inner">
         <div class="hero">
           <div class="brand-column">
-        <div class="logo-zone reveal logo">
-          <!-- INSERT LOGO: /assets/logo.png -->
-          <!-- TODO: Client to supply /assets/logo.png -->
-          <img
-            class="brand-mark"
-            src="images/unleash-monkey-green-only.png"
-            alt="Tipsi Monkey monkey artwork"
-          />
-        </div>
+            <div class="logo-zone reveal logo">
+              <!-- INSERT LOGO: /assets/logo.png -->
+              <!-- TODO: Client to supply /assets/logo.png -->
+              <div class="wordmark brand-label" aria-label="Tipsi Monkey Taco and Tequila Bar">
+                <p class="wordmark-title">
+                  <span class="wordmark-swash">Tipsi Monkey</span>
+                </p>
+                <p class="tagline">Taco &amp; Tequila Bar</p>
+              </div>
+              <img
+                class="brand-mark"
+                src="images/unleash-monkey-green-only.png"
+                alt="Tipsi Monkey monkey artwork"
+              />
+            </div>
 
             <div class="intro-block reveal">
               <!-- TODO: Replace "Your City" with the confirmed opening location/city -->
